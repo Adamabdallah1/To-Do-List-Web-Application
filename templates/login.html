@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+			<label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Username" required>
+			<label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password" required>
+            <button id='sub' type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a id='su' href="/signup">Sign up here</a></p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

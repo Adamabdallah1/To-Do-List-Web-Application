@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h2 id='admn' >Admin Panel</h2>
+        <h3>Registered Users:</h3>
+        <ul>
+            {% for username in users.keys() %}
+                <li>
+                    {{ username }}
+                    {% if username != 'admin' %}
+                        <form action="/delete_user/{{ username }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="/">Back to Home</a>
+    </div>
+
+    <h3>Manage User To-Do Lists:</h3>
+<ul>
+    {% for username in users.keys() %}
+        <li>
+            {{ username }}
+            {% if username != 'admin' %}
+                <form action="/delete_tasks/{{ username }}" method="POST" style="display:inline;">
+                    <button id='del' type="submit" onclick="return confirm('Are you sure you want to delete this user\'s to-do list?');">Delete To-Do List</button>
+                </form>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

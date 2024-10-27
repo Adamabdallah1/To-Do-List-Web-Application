@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="welcome-container">
+            <h2 id='well'>Welcome Back, {{ username }}!</h2>
+            <form id='logo' action="/logout" method="GET">
+                <button type="submit" id="logout">Logout</button>
+            </form>
+        </div>
+
+        <div class="todo-container">
+            <h2>Your To-Do List</h2>
+            <form action="/add_task" method="POST">
+                <input type="text" name="task" placeholder="Add a new task" required>
+                <label for="due_date">Select Due Date and Time:</label>
+                <input type="datetime-local" name="due_date" required>
+                <button type="submit" class="btn">Add Task</button>
+            </form>
+        
+            <ul class="task-list">
+                {% for task in tasks %}
+                    <li>
+                        <span class="task-item">{{ task.description }} - Due: {{ task.due_date }}</span>
+                        <a href="/delete_task/{{ loop.index0 }}" class="delete-btn">🗑️</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="news-container">
+            <h2>Latest News</h2>
+            <ul class="news-list">
+                {% for article in latest_news %}
+                    <li>
+                        <strong>{{ article.title }}</strong>
+                        <p>{{ article.description }}</p>
+                        <a href="{{ article.link }}" target="_blank">Read more</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Ace. All rights reserved.</p>
+    </footer>
+</body>
+</html>
